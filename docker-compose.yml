@@ -5,10 +5,13 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - main-db
+      - postgres
       - redis
+    env_file:
+      - .env
 
-  main-db:
+
+  postgres:
     image: postgres:17
     environment:
       POSTGRES_DB: urlshortener
@@ -16,14 +19,6 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
-  read-replica:
-    image: postgres:17
-    environment:
-      POSTGRES_DB: urlshortener
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "5433:5432"
   
 
   redis:

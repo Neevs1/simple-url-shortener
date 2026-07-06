@@ -1,7 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 
 import apis.url 
+import database.postgres as postgres
 app = FastAPI()
+
+api_router = APIRouter(prefix="/api")
 
 @app.get("/")
 async def root():
@@ -13,3 +16,13 @@ async def get_url(short_url: str):
     if not url:
         return {"error": "URL not found"}
     return {"url": url}
+
+@api_router.get("/testdbcon")
+async def testdbcon():
+    try:
+        postgres.test_connection()
+        return {"message": "Database connection successful!"}
+    except Exception as e:
+        return {"error": str(e)}
+
+app.include_router(api_router)
