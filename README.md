@@ -6,3 +6,10 @@ API server : FastAPI <br>
 Database + Read Replica : PostgreSQL <br> Current schema -
 ![database-diag](./db_diagram.png)<br>
 Cache : Redis <br>
+
+## Work plan
+<ul>
+<li>Add proper APIs + logic</li>
+<li>Add NGINX reverse proxy</li>
+<li>Grafana for monitnoring</li>
+</ul>
