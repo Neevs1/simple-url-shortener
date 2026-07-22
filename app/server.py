@@ -2,6 +2,7 @@ from fastapi import FastAPI, APIRouter
 
 import apis.url 
 import database.postgres as postgres
+import database.redis_con as redis_con
 app = FastAPI()
 
 api_router = APIRouter(prefix="/api")
@@ -22,6 +23,16 @@ async def testdbcon():
     try:
         postgres.test_connection()
         return {"message": "Database connection successful!"}
+    except Exception as e:
+        return {"error": str(e)}
+
+@api_router.get("/testrediscon")
+async def testrediscon():
+    try:
+        redis_test = redis_con.get_redis_client()
+        redis_test.set('test_key', 'test_value')
+        value = redis_test.get('test_key')
+        return {"message": "Redis connection successful!", "test_value": value}
     except Exception as e:
         return {"error": str(e)}
 
