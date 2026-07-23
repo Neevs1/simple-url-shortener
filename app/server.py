@@ -3,13 +3,28 @@ from fastapi import FastAPI, APIRouter
 import apis.url 
 import database.postgres as postgres
 import database.redis_con as redis_con
+import models.user as user
 app = FastAPI()
 
 api_router = APIRouter(prefix="/api")
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the URL Shortener API!"}
+    return """
+    <html>
+    <head>
+        <title>URL Shortener API</title>
+    </head>
+    <body>
+        <h1>Welcome to the URL Shortener API</h1>
+        <p>visit <a href="/docs">/docs</a> for API documentation.</p>
+    </body>
+    </html>
+"""
+@app.post("/create_user")
+async def create_user(user: user.UserCreate):
+    await apis.auth.create_user(user)
+    return {"message": "User created successfully"}
 
 @app.get("/{short_url}")
 async def get_url(short_url: str):
