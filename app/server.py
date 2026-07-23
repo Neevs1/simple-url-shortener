@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter
 
-import apis.url 
+import apis.url, apis.auth
 import database.postgres as postgres
 import database.redis_con as redis_con
 import models.user as user
