@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter
-
+from fastapi.responses import HTMLResponse
 import apis.url, apis.auth
 import database.postgres as postgres
 import database.redis_con as redis_con
@@ -8,7 +8,7 @@ app = FastAPI()
 
 api_router = APIRouter(prefix="/api")
 
-@app.get("/")
+@app.get("/",response_class=HTMLResponse)
 async def root():
     return """
     <html>
