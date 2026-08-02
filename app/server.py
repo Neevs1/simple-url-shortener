@@ -7,6 +7,7 @@ import models.user as user
 app = FastAPI()
 
 api_router = APIRouter(prefix="/api")
+auth_router = APIRouter(prefix="/auth")
 
 @app.get("/",response_class=HTMLResponse)
 async def root():
@@ -21,10 +22,17 @@ async def root():
     </body>
     </html>
 """
-@app.post("/create_user")
+@auth_router.post("/create_user")
 async def create_user(user: user.UserCreate):
     await apis.auth.create_user(user)
     return {"message": "User created successfully"}
+
+@auth_router.post("/login")
+async def login(user: user.UserLogin):
+    token = await apis.auth.login(user)
+    if token:
+        return {"access_token": token}
+    return {"error": "Invalid credentials"}
 
 @app.get("/{short_url}")
 async def get_url(short_url: str):
@@ -52,3 +60,4 @@ async def testrediscon():
         return {"error": str(e)}
 
 app.include_router(api_router)
+app.include_router(auth_router)

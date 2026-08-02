@@ -7,6 +7,12 @@ Database + Read Replica : PostgreSQL <br> Current schema -
 ![database-diag](./db_diagram.png)<br>
 Cache : Redis <br>
 
+## APIs
+APIs are categorized into three main parts <br>
+1. Base : For Home page, short URLs
+2. Auth : Having /auth/ prefix. /create_user for sign up, /login for login
+3. Monitoring : Having /api/ prefix. /testdbcon for testing Postgres connection and /testrediscon for testing Redis connection
+
 ## Url generation logic
 URL generation is based on Base62 + counter. By using the unique id of each original url, a short url is created.
 
@@ -19,7 +25,7 @@ Each URL will have TTL = 7 days.
 
 ## Work plan
 <ul>
-<li>Add final APIs</li>
+~~<li>Add final APIs</li>~~
 <li>Add NGINX reverse proxy</li>
 <li>Grafana for monitnoring</li>
 </ul>
