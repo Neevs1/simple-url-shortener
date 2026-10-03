@@ -6,26 +6,25 @@ API server : FastAPI <br>
 Database + Read Replica : PostgreSQL <br> Current schema -
 ![database-diag](./db_diagram.png)<br>
 Cache : Redis <br>
+Containerization : Docker \\
+Frontend : HTML5+CSS3
 
 ## APIs
 APIs are categorized into three main parts <br>
 1. Base : For Home page, short URLs
 2. Auth : Having /auth/ prefix. /create_user for sign up, /login for login
 3. Monitoring : Having /api/ prefix. /testdbcon for testing Postgres connection and /testrediscon for testing Redis connection
+4. Services: Used to render frontend services i.e. Login, Sign Up and Shorten HTML pages.
 
 ## Url generation logic
 URL generation is based on Base62 + counter. By using the unique id of each original url, a short url is created.
 
 ## Cache Population
 Cache will be populated using eager population. The understanding behind this is that urls will be used more after creation.<br>
-For expired URLs lazy population will be used.
+For expired URLs lazy population will be used. 
 
 ## Cache invalidation strategy
 Each URL will have TTL = 7 days.
 
-## Work plan
-<ul>
-~~<li>Add final APIs</li>~~
-<li>Add NGINX reverse proxy</li>
-<li>Grafana for monitnoring</li>
-</ul>
+## Cache stampede prevention
+A locking mechanism is to be added to prevent cache stampeding

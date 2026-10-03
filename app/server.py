@@ -59,5 +59,12 @@ async def testrediscon():
     except Exception as e:
         return {"error": str(e)}
 
+@api_router.post("/shorten_url")
+async def shorten_url(original_url: str, user: user.User):
+    short_url = await apis.url.save_url(original_url, user)
+    return {"short_url": short_url}
+
+app.frontend("/service", directory="frontend", fallback="index.html")
+
 app.include_router(api_router)
 app.include_router(auth_router)
