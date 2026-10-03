@@ -14,7 +14,7 @@ APIs are categorized into three main parts <br>
 1. Base : For Home page, short URLs
 2. Auth : Having /auth/ prefix. /create_user for sign up, /login for login
 3. Monitoring : Having /api/ prefix. /testdbcon for testing Postgres connection and /testrediscon for testing Redis connection
-4. Services: Used to render frontend services i.e. Login, Sign Up and Shorten HTML pages.
+4. Services: Used to render client facing services i.e. Login, Sign Up and Shorten HTML pages.
 
 ## Url generation logic
 URL generation is based on Base62 + counter. By using the unique id of each original url, a short url is created.
