@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, create_engine, inspect
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, create_engine, inspect, text
 
 
 
@@ -14,5 +14,14 @@ def test_connection():
     inspector = inspect(engine)
     tables = inspector.get_table_names()
     print("Tables in the database:", tables)
+    conn = engine.connect()
+    result = conn.execute(text("""
+        SELECT current_database(),
+               current_schema(),
+               current_user,
+               inet_server_addr(),
+               inet_server_port()
+    """))
+    print(result.fetchone())
 
 test_connection()

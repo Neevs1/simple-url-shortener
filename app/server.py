@@ -1,5 +1,5 @@
 from fastapi import FastAPI, APIRouter
-from fastapi.responses import HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse
 import apis.url, apis.auth
 import database.postgres as postgres
 import database.redis_con as redis_con
@@ -33,6 +33,7 @@ async def login(user: user.UserLogin):
     if token:
         return {"access_token": token}
     return {"error": "Invalid credentials"}
+
 
 @app.get("/{short_url}")
 async def get_url(short_url: str):

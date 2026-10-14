@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Sign Up</h1>
-    <form action="/auth/signup" method="post">
+    <form>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <br>
@@ -19,5 +19,25 @@
         <br>
         <button type="submit">Sign Up</button>
     </form>
+    <script>
+        const form = document.querySelector("form");
+
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    const response = await fetch("/auth/create_user", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
+    });
+
+    const result = await response.json();
+    console.log(result);
+});
+    </script>
 </body>
 </html>
