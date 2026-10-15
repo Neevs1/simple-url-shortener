@@ -23,5 +23,3 @@ def test_connection():
                inet_server_port()
     """))
     print(result.fetchone())
-
-test_connection()

@@ -22,10 +22,10 @@ async def get_url_from_postgres(short_url: str):
 
 async def get_url(short_url: str):
     url = await get_url_from_redis(short_url)
-    if url:
+    if url != None:
         return url
     url = await get_url_from_postgres(short_url)
-    if url:
+    if url != None:
         rd.set_key_value(short_url, url)
         rd.expire(short_url, 604800)
         return url

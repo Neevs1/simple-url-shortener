@@ -1,5 +1,5 @@
-from fastapi import FastAPI, APIRouter
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 import apis.url, apis.auth
 import database.postgres as postgres
 import database.redis_con as redis_con
@@ -37,10 +37,10 @@ async def login(user: user.UserLogin):
 
 @app.get("/{short_url}")
 async def get_url(short_url: str):
-    url = await apis.url.get_url_from_redis(short_url)
+    url = await apis.url.get_url(short_url)
     if not url:
-        return {"error": "URL not found"}
-    return {"url": url}
+        raise HTTPException(status_code=404, detail="URL not found")
+    return RedirectResponse(url=url, status_code=307)
 
 @api_router.get("/testdbcon")
 async def testdbcon():
