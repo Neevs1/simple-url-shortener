@@ -10,6 +10,9 @@ def set_key_value(key, value):
 def get_value(key):
     r = get_redis_client()
     return r.get(key)
+def expire(key, seconds):
+    r = get_redis_client()
+    r.expire(key, seconds)
 '''
 Testing phase code to check if Redis is working properly
 r = get_redis_client()

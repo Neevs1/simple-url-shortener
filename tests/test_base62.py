@@ -15,7 +15,7 @@ def test_encode():
     assert base62.encode_postgres_bigint(238327) == 'ZZZ'
 
     # Test encoding of a very large number
-    assert base62.encode_postgres_bigint(1234567890123456789) == '1LY7VK'
+    assert base62.encode_postgres_bigint(1234567890123456789) == '1tckI1NfUnH'
 
     # Test that negative numbers raise ValueError
     with pytest.raises(ValueError):
